@@ -1,0 +1,5 @@
+.hoverImage:hover img{
+   opacity: 75%;
+   transition-duration: .3s;
+   transition-delay: .1s;
+}
