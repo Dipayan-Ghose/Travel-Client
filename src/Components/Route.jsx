@@ -3,7 +3,7 @@ import Main from "./Main";
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Home/Home";
 import Packages from "../Pages/Packages";
-
+import SeatSelection from "../Components/SeatSelection/SeatSelection";
 export const Route = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +18,10 @@ export const Route = createBrowserRouter([
         path: "/packages",
         element: <Packages></Packages>,
       },
+      {
+        path: "/selectSeat/:seatClass",
+        element: <SeatSelection></SeatSelection>
+      }
     ],
   },
   {

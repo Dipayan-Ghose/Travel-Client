@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/20/solid";
 import Logo from "./logo.png";
 import "./Header.css";
+import { Link } from "react-router-dom";
 
 const products = [
   {
@@ -66,7 +67,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5 flex items-center">
             <img className="h-16 w-20 rounded rounded-full" src={Logo} alt="" />
-            <span className="font-bold text-[#3282AD]">Fly Bangladesh</span>
+            <span className="font-bold text-[#3282AD]"> <Link to='/'>Fly Bangladesh</Link></span>
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -132,7 +133,7 @@ export default function Header() {
             Find Reservation
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
+            Visa Apply
           </a>
           <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
             Support

@@ -1,6 +1,8 @@
 import { Transition } from "@headlessui/react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Datepicker from "react-tailwindcss-datepicker";
+import SeatSelection from "../SeatSelection/SeatSelection";
 
 const options = [
   "Dhaka",
@@ -22,6 +24,13 @@ const Form = () => {
     setValue(newValue);
   };
 
+  const [single, setSingle] = useState('');
+
+  const [round, setRound] = useState('');
+
+  const [seatClass, setSeatClass] = useState('');
+
+
   const [selectedFrom, setSelectedFrom] = useState(null);
   const [toOptions, setToOptions] = useState(options);
 
@@ -29,7 +38,9 @@ const Form = () => {
     const value = event.target.value;
     setSelectedFrom(value);
     setToOptions(options.filter((option) => option !== value));
-  };
+  };            
+
+  
 
   return (
     <div className="card lg:max-w-[1300px] bg-[#f2fcff] shadow mx-auto">
@@ -38,15 +49,51 @@ const Form = () => {
           <h2 className="card-title mb-5 text-[#3282AD] text-xxl">
             Where Are You Flying?
           </h2>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text mr-1">Single Trip</span>
+              <input
+                type="radio"
+                name="radio10"
+                className="radio checked:bg-blue-400"
+                value="single"
+                onClick={(e) => setSingle(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="form-control">
+            <label className="label cursor-pointer">
+              <span className="label-text mr-1">Round Trip</span>
+              <input
+                type="radio"
+                name="radio10"
+                className="radio checked:bg-blue-400"
+                value="round"
+                onClick={(e) => setRound(e.target.value)}
+              />
+            </label>
+          </div>
           <div className="w-60 flex gap-2 ">
-            <Datepicker
-              placeholder="Pick Your Date"
-              primaryColor={"indigo"}
-              asSingle={true}
-              value={value}
-              useRange={false}
-              onChange={handleValueChange}
-            />
+
+            {round ? (
+              <Datepicker
+                placeholder="Pick Your Date"
+                primaryColor={"indigo"}
+                asSingle={false}
+                value={value}
+                useRange={true}
+                onChange={handleValueChange}
+              />
+            ) : (
+              <Datepicker
+                placeholder="Pick Your Date"
+                primaryColor={"indigo"}
+                asSingle={true}
+                value={value}
+                useRange={false}
+                onChange={handleValueChange}
+              />
+            )}
           </div>
         </div>
 
@@ -79,7 +126,7 @@ const Form = () => {
           </div>
 
           <div className="flex gap-2">
-            <select className="select select-bordered w-48">
+            <select className="select select-bordered w-48" >
               <option disabled selected>
                 Passenger
               </option>
@@ -88,12 +135,12 @@ const Form = () => {
               <option>3</option>
               <option>4</option>
             </select>
-            <select className="select select-bordered w-48">
+            <select onClick={e=>setSeatClass(e.target.value) } className="select select-bordered w-48" >
               <option disabled selected>
-                Class
+                Select Class
               </option>
-              <option>Economy</option>
-              <option>Business</option>
+              <option value='Economy'>Economy</option>
+              <option value='Business'>Business</option>
             </select>
           </div>
         </div>
@@ -103,8 +150,7 @@ const Form = () => {
             class="relative inline-flex items-center justify-start py-3 pl-7 pr-7 overflow-hidden font-semibold text-[#3282AD] transition-all duration-150 ease-in-out rounded hover:pl-7 hover:pr-7 bg-transparent group"
           >
             <span class="absolute bottom-0 left-0 w-full h-1 transition-all duration-150 ease-in-out bg-[#3282AD] group-hover:h-full"></span>
-            <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12">
-            </span>
+            <span class="absolute right-0 pr-4 duration-200 ease-out group-hover:translate-x-12"></span>
             <span class="absolute left-0 pl-2 -translate-x-4 group-hover:translate-x-0 ease-out duration-300">
               <svg
                 class="w-4 h-4 text-white"
@@ -122,13 +168,12 @@ const Form = () => {
               </svg>
             </span>
             <span class="relative w-full text-left transition-colors duration-300 ease-in-out group-hover:text-white">
-            Show Flights
+              <Link to={`/selectSeat/${seatClass}`}>Show Flights</Link>  
             </span>
           </a>
-
-  
         </div>
       </div>
+     
     </div>
   );
 };
